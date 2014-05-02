@@ -1,0 +1,1 @@
+RUN the HugBotty.exe in HugBotty\HugBotty\bin\Debug

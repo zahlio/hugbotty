@@ -6,7 +6,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="server" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">irc.twitch.tv</Value>
     </Setting>
     <Setting Name="username" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

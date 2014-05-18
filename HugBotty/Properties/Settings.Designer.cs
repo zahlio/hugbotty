@@ -37,7 +37,7 @@ namespace HugBotty.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("irc.twitch.tv")]
         public string server {
             get {
                 return ((string)(this["server"]));

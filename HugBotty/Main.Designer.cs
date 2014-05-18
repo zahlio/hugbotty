@@ -101,7 +101,15 @@
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.challengePanel = new System.Windows.Forms.Panel();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label47 = new System.Windows.Forms.Label();
+            this.button11 = new System.Windows.Forms.Button();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
             this.label39 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label38 = new System.Windows.Forms.Label();
@@ -115,6 +123,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textBox14 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
@@ -131,7 +140,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label45 = new System.Windows.Forms.Label();
             this.label46 = new System.Windows.Forms.Label();
-            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.button12 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -142,6 +154,8 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tabPage4.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.challengePanel.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -162,6 +176,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(12, 78);
             this.tabControl1.Name = "tabControl1";
@@ -303,6 +318,7 @@
             this.serverBox.Size = new System.Drawing.Size(227, 20);
             this.serverBox.TabIndex = 2;
             this.serverBox.Text = "irc.twitch.tv";
+            this.serverBox.TextChanged += new System.EventHandler(this.serverBox_TextChanged);
             // 
             // textBox12
             // 
@@ -324,7 +340,7 @@
             // 
             this.button6.Location = new System.Drawing.Point(86, 82);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(20, 21);
+            this.button6.Size = new System.Drawing.Size(22, 22);
             this.button6.TabIndex = 99;
             this.button6.Text = "X";
             this.button6.UseVisualStyleBackColor = true;
@@ -389,9 +405,9 @@
             // 
             // getOAuthButton
             // 
-            this.getOAuthButton.Location = new System.Drawing.Point(267, 82);
+            this.getOAuthButton.Location = new System.Drawing.Point(256, 82);
             this.getOAuthButton.Name = "getOAuthButton";
-            this.getOAuthButton.Size = new System.Drawing.Size(46, 20);
+            this.getOAuthButton.Size = new System.Drawing.Size(57, 22);
             this.getOAuthButton.TabIndex = 99;
             this.getOAuthButton.Text = "Get";
             this.getOAuthButton.UseVisualStyleBackColor = true;
@@ -850,6 +866,7 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Database";
             this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
             // richTextBox1
             // 
@@ -863,9 +880,9 @@
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(125, 9);
+            this.textBox10.Location = new System.Drawing.Point(88, 9);
             this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(99, 20);
+            this.textBox10.Size = new System.Drawing.Size(136, 20);
             this.textBox10.TabIndex = 1;
             this.textBox10.Text = "zahlio";
             // 
@@ -889,8 +906,85 @@
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.challengePanel);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(324, 344);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Challenge";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // challengePanel
+            // 
+            this.challengePanel.Controls.Add(this.button12);
+            this.challengePanel.Controls.Add(this.label49);
+            this.challengePanel.Controls.Add(this.label50);
+            this.challengePanel.Controls.Add(this.textBox15);
+            this.challengePanel.Controls.Add(this.label48);
+            this.challengePanel.Controls.Add(this.label47);
+            this.challengePanel.Controls.Add(this.button11);
+            this.challengePanel.Controls.Add(this.richTextBox2);
+            this.challengePanel.Controls.Add(this.button4);
+            this.challengePanel.Enabled = false;
+            this.challengePanel.Location = new System.Drawing.Point(6, 6);
+            this.challengePanel.Name = "challengePanel";
+            this.challengePanel.Size = new System.Drawing.Size(312, 332);
+            this.challengePanel.TabIndex = 0;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(247, 282);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(31, 13);
+            this.label48.TabIndex = 4;
+            this.label48.Text = "none";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(149, 282);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(96, 13);
+            this.label47.TabIndex = 3;
+            this.label47.Text = "Current challenger:";
+            // 
+            // button11
+            // 
+            this.button11.Enabled = false;
+            this.button11.Location = new System.Drawing.Point(89, 277);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(54, 23);
+            this.button11.TabIndex = 2;
+            this.button11.Text = "Next";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Location = new System.Drawing.Point(4, 3);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.ReadOnly = true;
+            this.richTextBox2.Size = new System.Drawing.Size(305, 242);
+            this.richTextBox2.TabIndex = 1;
+            this.richTextBox2.Text = "";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(4, 306);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(305, 23);
+            this.button4.TabIndex = 0;
+            this.button4.Text = "Start challenge";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
+            // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.button3);
             this.tabPage5.Controls.Add(this.label39);
             this.tabPage5.Controls.Add(this.linkLabel1);
             this.tabPage5.Controls.Add(this.label38);
@@ -905,6 +999,16 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "About";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(155, 23);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(149, 24);
+            this.button3.TabIndex = 27;
+            this.button3.Text = "Geek window";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // label39
             // 
@@ -1041,6 +1145,14 @@
             this.panel1.Size = new System.Drawing.Size(344, 67);
             this.panel1.TabIndex = 21;
             // 
+            // textBox14
+            // 
+            this.textBox14.Location = new System.Drawing.Point(25, 8);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(149, 20);
+            this.textBox14.TabIndex = 100;
+            this.textBox14.Text = "Because i am happy!";
+            // 
             // textBox8
             // 
             this.textBox8.Location = new System.Drawing.Point(3, 34);
@@ -1079,9 +1191,9 @@
             // button7
             // 
             this.button7.Enabled = false;
-            this.button7.Location = new System.Drawing.Point(795, 425);
+            this.button7.Location = new System.Drawing.Point(795, 426);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(78, 23);
+            this.button7.Size = new System.Drawing.Size(78, 22);
             this.button7.TabIndex = 52;
             this.button7.Text = "SEND";
             this.button7.UseVisualStyleBackColor = true;
@@ -1193,20 +1305,51 @@
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(313, 13);
+            this.label46.Location = new System.Drawing.Point(313, 14);
             this.label46.Name = "label46";
             this.label46.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label46.Size = new System.Drawing.Size(13, 13);
             this.label46.TabIndex = 26;
             this.label46.Text = "0";
             // 
-            // textBox14
+            // label49
             // 
-            this.textBox14.Location = new System.Drawing.Point(25, 8);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(149, 20);
-            this.textBox14.TabIndex = 100;
-            this.textBox14.Text = "Because i am happy!";
+            this.label49.AutoSize = true;
+            this.label49.Enabled = false;
+            this.label49.Location = new System.Drawing.Point(273, 254);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(36, 13);
+            this.label49.TabIndex = 27;
+            this.label49.Text = "hug(s)";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Enabled = false;
+            this.label50.Location = new System.Drawing.Point(3, 254);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(80, 13);
+            this.label50.TabIndex = 25;
+            this.label50.Text = "Challenge cost:";
+            // 
+            // textBox15
+            // 
+            this.textBox15.Location = new System.Drawing.Point(89, 251);
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(178, 20);
+            this.textBox15.TabIndex = 26;
+            this.textBox15.Text = "0";
+            // 
+            // button12
+            // 
+            this.button12.Enabled = false;
+            this.button12.Location = new System.Drawing.Point(6, 277);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(77, 23);
+            this.button12.TabIndex = 28;
+            this.button12.Text = "Update files";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // Main
             // 
@@ -1225,7 +1368,7 @@
             this.MaximizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "HugBotty 2.4 - By zahlio";
+            this.Text = "HugBotty 1.0 - By zahlio";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.tabControl1.ResumeLayout(false);
@@ -1243,6 +1386,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.challengePanel.ResumeLayout(false);
+            this.challengePanel.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -1358,6 +1504,18 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.Panel challengePanel;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.TextBox textBox15;
+        private System.Windows.Forms.Button button12;
     }
 }
 

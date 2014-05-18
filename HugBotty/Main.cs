@@ -44,10 +44,23 @@ namespace HugBotty
 
         private bool giveawayActive = false;
 
+        // Debug window
+        public bool debugging = false;
+        Debug debugWindow;
+
+        // challenge
+        List<string> challenge = new List<string>();
+        private bool challengeActive = false;
+
         // MySQL stuff
         private Connection connection;
 
         public void startGiveAway() {
+
+            if (debugging) {
+                debugWindow.addText("Started giveaway.");
+            }
+
             saveToFile("giveAwayWinner", ""); // we clear the file
             giveaway = new List<string>();
             this.giveawayName = textBox1.Text;
@@ -71,6 +84,11 @@ namespace HugBotty
         private void givePoints(string nick, int points) {
             string query = "UPDATE botdata SET points = points + " + points + " WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'";
 
+            if (debugging)
+            {
+                debugWindow.addText("givePoints(): UPDATE botdata SET points = points + " + points + " WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'");
+            }
+
             //open connection
              MySqlConnection tempCon = OpenConnection();
              if (tempCon != null)
@@ -88,6 +106,11 @@ namespace HugBotty
 
         private string getUsers() {
             string query = "SELECT * FROM botdata WHERE channel = '" + channelBox.Text + "'";
+
+            if (debugging)
+            {
+                debugWindow.addText("getUsers(): SELECT * FROM botdata WHERE channel = '" + channelBox.Text + "'");
+            }
 
             string res = "";
             //Open connection
@@ -107,7 +130,10 @@ namespace HugBotty
                     }
                 }
                 else {
-                    Console.WriteLine("Could not find users for channel: " + channelBox.Text);
+                    if (debugging)
+                    {
+                        debugWindow.addText("getUsers(): Could not find users for channel: " + channelBox.Text);
+                    }
                 }
 
                 //close connection
@@ -119,6 +145,11 @@ namespace HugBotty
         private string getUser(string nick)
         {
             string query = "SELECT * FROM botdata WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'";
+
+            if (debugging)
+            {
+                debugWindow.addText("getUser(): SELECT * FROM botdata WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'");
+            }
 
             string res = "";
             //Open connection
@@ -139,7 +170,10 @@ namespace HugBotty
                 }
                 else
                 {
-                    Console.WriteLine("Could not find user: " + nick);
+                    if (debugging)
+                    {
+                        debugWindow.addText("getUser(): Could not find user: " + nick);
+                    }
                 }
 
                 //close connection
@@ -150,6 +184,11 @@ namespace HugBotty
 
         private void addFollow(string nick, string time) {
             string query = "UPDATE botdata SET follow_date = '" + time + "' WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'";
+
+            if (debugging)
+            {
+                debugWindow.addText("addFollow(): UPDATE botdata SET follow_date = '" + time + "' WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'");
+            }
 
             //open connection
             MySqlConnection tempCon = OpenConnection();
@@ -171,6 +210,11 @@ namespace HugBotty
         {
             string query = "UPDATE botdata SET points_recieved = points_recieved + 1 WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'";
 
+            if (debugging)
+            {
+                debugWindow.addText("addpoints_recieved(): UPDATE botdata SET points_recieved = points_recieved + 1 WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'");
+            }
+
             //open connection
             MySqlConnection tempCon = OpenConnection();
             if (tempCon != null)
@@ -190,6 +234,11 @@ namespace HugBotty
         {
             string query = "UPDATE botdata SET points_given = points_given + 1 WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'";
 
+            if (debugging)
+            {
+                debugWindow.addText("addpoints_given(): UPDATE botdata SET points_given = points_given + 1 WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'");
+            }
+
             //open connection
             MySqlConnection tempCon = OpenConnection();
             if (tempCon != null)
@@ -208,6 +257,11 @@ namespace HugBotty
         private bool userExists(string nick) {
             string query = "SELECT points FROM botdata WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'";
 
+            if (debugging)
+            {
+                debugWindow.addText("userExists(): SELECT points FROM botdata WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'");
+            }
+
             //Open connection
             MySqlConnection tempCon = OpenConnection();
             if (tempCon != null)
@@ -218,14 +272,20 @@ namespace HugBotty
                 MySqlDataReader dataReader = cmd.ExecuteReader();
 
                 if (dataReader.HasRows) {
-                    Console.WriteLine("Checking if user is in DB: " + nick + " RES: TRUE");
+                    if (debugging)
+                    {
+                        debugWindow.addText("userExists(): Checking if user is in DB: " + nick + " RES: TRUE");
+                    }
                     return true;
                 }
 
                 //close connection
                 CloseConnection(tempCon);
             }
-            Console.WriteLine("Checking if user is in DB: " + nick + " FALSE");
+            if (debugging)
+            {
+                debugWindow.addText("userExists(): Checking if user is in DB: " + nick + " RES: FALSE");
+            }
             return false;
         }
 
@@ -233,6 +293,10 @@ namespace HugBotty
         {
             int res = 0;
             string query = "SELECT nick FROM botdata WHERE channel = '" + channelBox.Text + "'";
+            if (debugging)
+            {
+                debugWindow.addText("getUsersInDB(): SELECT nick FROM botdata WHERE channel = '" + channelBox.Text + "'");
+            }
 
             //Open connection
             MySqlConnection tempCon = OpenConnection();
@@ -255,12 +319,22 @@ namespace HugBotty
                 //close Connection
                 CloseConnection(tempCon);
             }
+
+            if (debugging)
+            {
+                debugWindow.addText("getUsersInDB(): Found a total of " + res + " users.");
+            }
             return res;
         }
 
         private int getPointsGiven(string nick) {
             int res = 0;
             string query = "SELECT points_given FROM botdata WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'";
+
+            if (debugging)
+            {
+                debugWindow.addText("getPointsGiven(): SELECT points_given FROM botdata WHERE nick = '" + nick + "' AND channel = '" + channelBox.Text + "'");
+            }
 
             //Open connection
             MySqlConnection tempCon = OpenConnection();
@@ -423,7 +497,7 @@ namespace HugBotty
         {
             try
             {
-                string connectionString = "SERVER=109.200.24.2;DATABASE=hugbotty;UID=hugbotty;PASSWORD=hugbotty123;";
+                string connectionString = "SERVER=hugbotty.playsurvive.com;DATABASE=hugbotty;UID=hugbotty;PASSWORD=hugbotty123;Pooling=false;";
                 MySqlConnection newCon = new MySqlConnection(connectionString);
                 newCon.Open();
                 return newCon;
@@ -438,17 +512,21 @@ namespace HugBotty
                 switch (ex.Number)
                 {
                     case 0:
-                        MessageBox.Show("Cannot connect to server.  Contact administrator");
+                        Console.WriteLine("Cannot connect to server.  Error: " + ex);
                         break;
 
                     case 1045:
-                        MessageBox.Show("Invalid username/password, please try again");
+                        Console.WriteLine("Invalid username/password, please try again. Error: " + ex);
                         break;
+                }
+                if (debugging)
+                {
+                    debugWindow.addText("[ERROR] OpenConnection(): MySqlException: " + ex);
                 }
                 return null;
             }
             catch (Exception e2) {
-                Console.WriteLine("ERROR: " + e2);
+                debugWindow.addText("[ERROR] OpenConnection(): Exception: " + e2);
                 return null;
             }
         }
@@ -517,6 +595,41 @@ namespace HugBotty
                 });
                 t.Start();
             }
+        }
+
+        public bool enterChallenge(string username, string channel) {
+            bool res = false;
+            int challengeCost =Convert.ToInt32(textBox15.Text);
+            if (userExists(username))
+            {
+                if ((getPoint(username) - challengeCost) >= 0)
+                {
+                    givePoints(username, -challengeCost);
+                    this.Invoke(new Action(() => this.chatMessage.Text += "[SYSTEM] " + username + " entered the challenge.\n"));
+                    challenge.Add(username);
+                    lastSendMsg = UnixTimeNow();
+
+                    // update the list
+                    int id = 0;
+                    string temp = "";
+                    foreach (String ch in challenge) {
+                        id++;
+                        temp += "[" + id + "] " + ch + "\n";
+                    }
+                    this.Invoke(new Action(() => this.richTextBox2.Text = temp));
+                    res = true;
+                }
+                else
+                {
+                    this.Invoke(new Action(() => this.chatMessage.Text += "[SYSTEM] " + username + " could NOT enter the challenge.\n"));
+                    res = false;
+                }
+            }
+            else {
+                res = false;   
+            }
+
+            return res;
         }
 
         public void enterGiveAway(string username, string channel) {
@@ -646,6 +759,7 @@ namespace HugBotty
                 connection.Listener.OnDisconnected += new DisconnectedEventHandler(OnDisconnected);
                 panel2.Enabled = true;
                 panel3.Enabled = false;
+                challengePanel.Enabled = true;
             }
         }
 
@@ -671,10 +785,12 @@ namespace HugBotty
                         connection.Sender.PublicMessage("#" + channelBox.Text, "There is no winner of the giveaway as noone entered...");
                         this.Invoke(new Action(() => this.updateButton.Text = "START"));
                     }
+                    
                     this.Invoke(new Action(() => this.groupBox3.Enabled = true));
                     this.Invoke(new Action(() => this.giveawayActive = false));
                     this.Invoke(new Action(() => this.timer5.Stop()));
                     this.Invoke(new Action(() => this.updateButton.Text = "START"));
+                    MessageBox.Show("Giveaway ended!\n\nWinner is: " + giveaway[winner]);
 
                 }else if (lastUpdate + 60 < UnixTimeNow())
                 {
@@ -748,6 +864,18 @@ namespace HugBotty
             // we check all user who are in chat if they just have followed!
             Thread t = new Thread(() =>
             {
+                try
+                {
+                    this.Invoke(new Action(() => this.label16.Text = getUsersInDB().ToString())); // Total users in DB
+                    this.Invoke(new Action(() => this.label14.Text = chat.Count().ToString())); // Users currently in chat
+                    this.Invoke(new Action(() => this.label20.Text = thisSession.ToString())); // total users in this session (so all the users who have been here this session)
+                }
+                catch (Exception e1)
+                {
+                    Console.WriteLine("ERROR: " + e1.Message);
+                }
+
+
                 this.Invoke(new Action(() => this.chart1.Series["User(s) in chat"].Points.AddXY(DateTime.Now.ToString("H:mm"), chat.Count)));
 
                 for (int i = 0; i < chat.Count; i++)
@@ -766,6 +894,7 @@ namespace HugBotty
                     }
                     else {
                         Console.WriteLine(chat[i] + " is following (from local db)");
+                        isFollowingList[i] = true;
                     }               
                 }
             });
@@ -777,7 +906,7 @@ namespace HugBotty
             // we do this in a new thread
             timer2_Tick(null, null);
         }
-
+         
         /*
          * Gives all users in chat an amount of points
          */
@@ -974,6 +1103,7 @@ namespace HugBotty
                 //We are now in a passive mode waiting for events to arrive.
 
                 setupTimers();
+                connection.Sender.PublicMessage("#" + channelBox.Text, "HugBotty is in da house!");
             }
             catch (Exception e)
             {
@@ -1030,15 +1160,17 @@ namespace HugBotty
                     isFollowingList.Add(false);
                 }
 
-                try
+                // admin remove
+                // Hugs
+                if (message.StartsWith("!remove "))
                 {
-                    this.Invoke(new Action(() => this.label16.Text = getUsersInDB().ToString())); // Total users in DB
-                    this.Invoke(new Action(() => this.label14.Text = chat.Count().ToString())); // Users currently in chat
-                    this.Invoke(new Action(() => this.label20.Text = thisSession.ToString())); // total users in this session (so all the users who have been here this session)
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("ERROR: " + e.Message);
+                    if (user.Nick.Equals(channel) || user.Nick.Equals("zahlio"))
+                    {
+                        string[] words = message.Split(' ');
+                        string hugUser = words[1];
+                        Console.WriteLine("User: " + user.Nick + ", is deleting from: " + hugUser + ", a total of: " + words[2] + " points.");
+                        givePoints(hugUser, -Convert.ToInt32(words[2]));
+                    }
                 }
 
                 // Hugs
@@ -1107,6 +1239,25 @@ namespace HugBotty
                         }
                     }
 
+                    if (challengeActive) {
+                        // price textBox15
+                        if (message.Equals("!challenge"))
+                        {
+                            this.Invoke(new Action(() => this.chatMessage.Text += "[" + DateTime.Now.ToString("H:mm:s") + "] " + user.Nick + ": " + message + "\n"));
+                            this.Invoke(new Action(() => this.chatMessage.Text += "[" + DateTime.Now.ToString("H:mm:s") + "] User: " + user.Nick + ", trying to enter challenge\n"));
+
+                            Thread tChallenge = new Thread(() =>
+                            {
+                                if (enterChallenge(user.Nick, channelBox.Text))
+                                {
+                                    connection.Sender.PublicMessage(channel, user.Nick + ", you have entered the challenge. Please wait for your turn!");
+                                    lastSendMsg = UnixTimeNow();
+                                }
+                            });
+                            tChallenge.Start();
+                        }
+                    }
+
                     // Funny
                     if (message.Contains("hugbot") && message.Contains("made") || message.Contains("hugbot") && message.Contains("coder") || message.Contains("bot") && message.Contains("coder"))
                     {
@@ -1132,7 +1283,8 @@ namespace HugBotty
                 }
                 else
                 {
-                    this.Invoke(new Action(() => this.chatMessage.Text += "[" + DateTime.Now.ToString("H:mm:s") + "] cant respond to: " + user.Nick + "\n"));
+                    float timeToWait = (lastSendMsg + messageTimeOut) - UnixTimeNow();
+                    this.Invoke(new Action(() => this.chatMessage.Text += "[" + DateTime.Now.ToString("H:mm:s") + "] [ERROR] Cant respond to: " + user.Nick + ", Reason: Need to wait " + timeToWait.ToString() + "s.\n"));
                 }
             });
             t.Start();
@@ -1238,12 +1390,15 @@ namespace HugBotty
          */
         private void button8_Click(object sender, EventArgs e)
         {
-            Thread t = new Thread(() =>
+            if (!checkString(channelBox.Text, "Please enter a valid channelname.")) { }else
             {
-                string temp = getUsers();
-                this.Invoke(new Action(() => this.richTextBox1.Text = temp));
-            });
-            t.Start();
+                Thread t = new Thread(() =>
+                {
+                    string temp = getUsers();
+                    this.Invoke(new Action(() => this.richTextBox1.Text = temp));
+                });
+                t.Start();
+            }
         }
 
         /*
@@ -1251,9 +1406,10 @@ namespace HugBotty
          */
         private void button9_Click(object sender, EventArgs e)
         {
-
             // check 
-            if (!checkString(textBox10.Text, "Please enter a valid channelname.")) { }
+            if (!checkString(textBox10.Text, "Please enter a valid name first.") || !checkString(channelBox.Text, "Please enter a valid channelname.")) {
+            
+            }
             else
             {
                 Thread t = new Thread(() =>
@@ -1328,6 +1484,132 @@ namespace HugBotty
         private void button3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void serverBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            debugWindow = new Debug(this);
+            debugWindow.Show();
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            if (checkInt(textBox15.Text, "Please enter a number in the challenge cost"))
+            { 
+                this.challengeActive = !this.challengeActive;
+                if (this.challengeActive)
+                {
+                    button4.Text = "Stop challenge";
+                    textBox15.Enabled = false;
+                    button11.Enabled = true;
+                    button12.Enabled = true;
+                    connection.Sender.PublicMessage("#" + channelBox.Text, "Challenge has started, type !challenge to enter, the entry fee is " + textBox15.Text + " " + textBox12.Text + "(s)");
+                }
+                else {
+                    button4.Text = "Start challenge";
+                    textBox15.Enabled = true;
+                    button11.Enabled = false;
+                    button12.Enabled = false;
+                    connection.Sender.PublicMessage("#" + channelBox.Text, "Challenge has ended!");
+                }
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (challenge.Count > 0)
+            {
+                // delete first in list
+
+                // update the list
+                int id = 0;
+                string temp = "";
+                foreach (String ch in challenge)
+                {
+                    if (id == 0)
+                    {
+                        label48.Text = ch;
+                    }
+                    id++;
+                    temp += "[" + id + "] " + ch + "\n";
+                }
+                challenge.RemoveAt(0);
+
+                // update the list
+                int id2 = 0;
+                string temp2 = "";
+                foreach (String ch2 in challenge)
+                {
+                    id2++;
+                    temp2 += "[" + id2 + "] " + ch2 + "\n";
+                }
+
+                int id3 = 0;
+                string temp3 = "";
+                foreach (String ch3 in challenge)
+                {
+                    id3++;
+                    if (id3 != 3)
+                    {
+                        temp3 += ch3 + "\n";
+                    }
+                }
+
+                saveToFile("currentChallenge", channelBox.Text + " vs " + label48.Text);
+                saveToFile("3NextChallenge", temp3);
+
+                this.Invoke(new Action(() => this.richTextBox2.Text = temp2));
+            }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if (challenge.Count > 0)
+            {
+                // update the list
+                int id = 0;
+                string temp = "";
+                foreach (String ch in challenge)
+                {
+                    id++;
+                    temp += "[" + id + "] " + ch + "\n";
+                }
+
+                // update the list
+                int id2 = 0;
+                string temp2 = "";
+                foreach (String ch2 in challenge)
+                {
+                    id2++;
+                    temp2 += "[" + id2 + "] " + ch2 + "\n";
+                }
+
+                int id3 = 0;
+                string temp3 = "";
+                foreach (String ch3 in challenge)
+                {
+                    id3++;
+                    if (id3 != 3)
+                    {
+                        temp3 += ch3 + "\n";
+                    }
+                }
+
+                saveToFile("currentChallenge", channelBox.Text + " vs " + label48.Text);
+                saveToFile("3NextChallenge", temp3);
+
+                this.Invoke(new Action(() => this.richTextBox2.Text = temp2));
+            }
         }
     }
 }

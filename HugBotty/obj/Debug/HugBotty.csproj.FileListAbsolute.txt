@@ -1,7 +1,6 @@
 H:\Projects\HugBotty\HugBotty\bin\Debug\HugBotty.exe.config
 H:\Projects\HugBotty\HugBotty\bin\Debug\HugBotty.exe
 H:\Projects\HugBotty\HugBotty\bin\Debug\HugBotty.pdb
-H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.csprojResolveAssemblyReference.cache
 H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.Main.resources
 H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.Properties.Resources.resources
 H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.csproj.GenerateResource.Cache
@@ -38,3 +37,13 @@ C:\Users\Christoffer\Documents\GitHub\HugBotty\HugBotty\obj\Debug\HugBotty.Main.
 C:\Users\Christoffer\Documents\GitHub\HugBotty\HugBotty\obj\Debug\HugBotty.Properties.Resources.resources
 C:\Users\Christoffer\Documents\GitHub\HugBotty\HugBotty\obj\Debug\HugBotty.csproj.GenerateResource.Cache
 C:\Users\Christoffer\Documents\GitHub\HugBotty\HugBotty\obj\Debug\HugBotty.Debug.resources
+H:\Projects\HugBotty\HugBotty\bin\Debug\MySql.Data.dll
+H:\Projects\HugBotty\HugBotty\bin\Debug\MySql.Data.Entity.dll
+H:\Projects\HugBotty\HugBotty\bin\Debug\MySql.Web.dll
+H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.Debug.resources
+H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.Donate.resources
+H:\Projects\HugBotty\HugBotty\bin\Debug\HugBotty.exe.manifest
+H:\Projects\HugBotty\HugBotty\bin\Debug\HugBotty.application
+H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.TrustInfo.xml
+H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.exe.manifest
+H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.application

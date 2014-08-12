@@ -13,6 +13,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace HugBotty
 {
@@ -497,7 +499,7 @@ namespace HugBotty
         {
             try
             {
-                string connectionString = "SERVER=hugbotty.playsurvive.com;DATABASE=hugbotty;UID=hugbotty;PASSWORD=hugbotty123;Pooling=false;";
+                string connectionString = "SERVER=ftp.zahlio.com;DATABASE=hugbotty;UID=hugbotty;PASSWORD=hugbotty123;Pooling=false;";
                 MySqlConnection newCon = new MySqlConnection(connectionString);
                 newCon.Open();
                 return newCon;
@@ -705,6 +707,11 @@ namespace HugBotty
             Donate d = new Donate(this);
             d.Show();
             this.Enabled = false;
+
+            // Load version
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            this.Text = "HugBotty " + fvi.FileVersion + " - By zahlio";
         }
 
         private void tb_KeyDown(object sender, KeyEventArgs e)

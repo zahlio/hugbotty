@@ -47,3 +47,12 @@ H:\Projects\HugBotty\HugBotty\bin\Debug\HugBotty.application
 H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.TrustInfo.xml
 H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.exe.manifest
 H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.application
+D:\Streaming\HugBotty Git\HugBotty\bin\Debug\HugBotty.exe.config
+D:\Streaming\HugBotty Git\HugBotty\obj\Debug\HugBotty.exe
+D:\Streaming\HugBotty Git\HugBotty\obj\Debug\HugBotty.pdb
+D:\Streaming\HugBotty Git\HugBotty\obj\Debug\HugBotty.csprojResolveAssemblyReference.cache
+D:\Streaming\HugBotty Git\HugBotty\obj\Debug\HugBotty.Debug.resources
+D:\Streaming\HugBotty Git\HugBotty\obj\Debug\HugBotty.Donate.resources
+D:\Streaming\HugBotty Git\HugBotty\obj\Debug\HugBotty.Main.resources
+D:\Streaming\HugBotty Git\HugBotty\obj\Debug\HugBotty.Properties.Resources.resources
+D:\Streaming\HugBotty Git\HugBotty\obj\Debug\HugBotty.csproj.GenerateResource.Cache

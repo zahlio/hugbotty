@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Reflection;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace HugBotty
 {
@@ -1260,8 +1261,32 @@ namespace HugBotty
                                     connection.Sender.PublicMessage(channel, user.Nick + ", you have entered the challenge. Please wait for your turn!");
                                     lastSendMsg = UnixTimeNow();
                                 }
+
                             });
                             tChallenge.Start();
+                        }
+                    }
+
+                    // betting
+                    if (isBetting) {
+                        if (message.Equals("!bet"))
+                        {
+                            this.Invoke(new Action(() => this.chatMessage.Text += "[" + DateTime.Now.ToString("H:mm:s") + "] " + user.Nick + ": " + message + "\n"));
+                            this.Invoke(new Action(() => this.chatMessage.Text += "[" + DateTime.Now.ToString("H:mm:s") + "] User: " + user.Nick + ", trying to enter bet\n"));
+
+                            Thread tBetting = new Thread(() =>
+                            {
+                                int amount = Int32.Parse(Regex.Match(message, @"\d+").Value);
+                                string option = message.Replace("!bet ", "");
+                                option = option.Replace(" " + amount, "");
+
+                                if (addBet(user.Nick, option, amount))
+                                {
+                                    connection.Sender.PublicMessage(channel, user.Nick + ", you have entered the bet!");
+                                    lastSendMsg = UnixTimeNow();
+                                }
+                            });
+                            tBetting.Start();
                         }
                     }
 
@@ -1647,6 +1672,105 @@ namespace HugBotty
         private void label53_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            startBetting();
+        }
+
+        // ********************************************************* //
+        //                         BETTING                           //
+        // ********************************************************* //
+
+
+        /*
+         * Class for betting
+         */
+        class Bet
+        {
+            public string userName;
+            public string option;
+            public int amount;
+
+            public Bet(string u, string o, int a){
+                userName = u;
+                option = o;
+                amount = a;
+            }
+        }
+
+        List<Bet> betting = new List<Bet>();
+        public bool isBetting = false;
+        public System.Windows.Forms.Timer bettingTimer;
+        public int totalBetAmount = 0;
+        public int betEntries = 0;
+        public string winnerOption = "";
+        public int maxBet = 0;
+
+        private void startBetting() {
+            betting = new List<Bet>(); // clear the earlier one.
+            isBetting = true;
+            totalBetAmount = 0;
+            betEntries = 0;
+            winnerOption = "";
+            maxBet = Convert.ToInt32(textBox18.Text);
+            connection.Sender.PublicMessage("#" + channelBox.Text, "Bet OPEN! Option A: " + textBox16.Text + " - Option B: " + textBox17.Text + "  - to do a bet type: !bet A amount or !bet B amount - Max Betting Amount: " + maxBet);
+        }
+
+        private bool addBet(string user, string op, int am) {
+            bool exists = false;
+
+            // we first check if the user already have betted
+            foreach (Bet b in betting)
+            {
+                if (b.userName.Equals(user))
+                {
+                    exists = true;
+                }
+            }
+
+            // we now do our other arguments
+            if (getPoint(user) - am >= 0 && am <= maxBet && !exists)
+            {
+                Bet thisBet = new Bet(user, op, am);
+                betting.Add(thisBet);
+                givePoints(user, -am);
+                totalBetAmount += am;
+                betEntries++;
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        private string settleBetting(string winnerOption) {
+            int totalWinners = 0;
+            int totalWinnings = 0;
+            foreach (Bet b in betting)
+            {
+                if (b.option.Equals(winnerOption))
+                {
+                    // its a winner
+                    givePoints(b.userName, b.amount * 2);
+                    totalWinners++;
+                    totalWinnings += (b.amount * 2);
+                }else{
+                    // its not a winner
+                }
+            }
+            return "Bet is over, total winners: " + totalWinners + ", with a total of winnings paid: " + totalWinnings + " HugPoint(s)";
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            settleBetting("A");
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            settleBetting("B");
         }
     }
 }

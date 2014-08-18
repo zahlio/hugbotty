@@ -56,3 +56,4 @@ D:\Streaming\HugBotty Git\HugBotty\obj\Debug\HugBotty.Donate.resources
 D:\Streaming\HugBotty Git\HugBotty\obj\Debug\HugBotty.Main.resources
 D:\Streaming\HugBotty Git\HugBotty\obj\Debug\HugBotty.Properties.Resources.resources
 D:\Streaming\HugBotty Git\HugBotty\obj\Debug\HugBotty.csproj.GenerateResource.Cache
+H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.csprojResolveAssemblyReference.cache

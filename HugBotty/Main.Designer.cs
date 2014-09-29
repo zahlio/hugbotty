@@ -150,6 +150,8 @@
             this.button14 = new System.Windows.Forms.Button();
             this.label59 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBox18 = new System.Windows.Forms.TextBox();
+            this.label52 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label57 = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
@@ -163,8 +165,7 @@
             this.textBox16 = new System.Windows.Forms.TextBox();
             this.textBox17 = new System.Windows.Forms.TextBox();
             this.label55 = new System.Windows.Forms.Label();
-            this.textBox18 = new System.Windows.Forms.TextBox();
-            this.label52 = new System.Windows.Forms.Label();
+            this.button16 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -215,7 +216,6 @@
             this.button1.TabIndex = 99;
             this.button1.Text = "Update followers";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -225,7 +225,6 @@
             this.button2.TabIndex = 2;
             this.button2.Text = "Give points to all";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // textBox4
             // 
@@ -282,7 +281,6 @@
             this.button5.TabIndex = 3;
             this.button5.Text = "Add to user";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // textBox9
             // 
@@ -302,7 +300,6 @@
             this.button7.TabIndex = 52;
             this.button7.Text = "SEND";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label16
             // 
@@ -405,7 +402,6 @@
             this.label45.Size = new System.Drawing.Size(133, 13);
             this.label45.TabIndex = 25;
             this.label45.Text = "New followers this session:";
-            this.label45.Click += new System.EventHandler(this.label45_Click);
             // 
             // label46
             // 
@@ -419,6 +415,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.button16);
             this.tabPage5.Controls.Add(this.button3);
             this.tabPage5.Controls.Add(this.label39);
             this.tabPage5.Controls.Add(this.linkLabel1);
@@ -439,11 +436,11 @@
             // 
             this.button3.Location = new System.Drawing.Point(155, 23);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(149, 24);
+            this.button3.Size = new System.Drawing.Size(103, 24);
             this.button3.TabIndex = 27;
             this.button3.Text = "Geek window";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label39
             // 
@@ -463,7 +460,6 @@
             this.linkLabel1.TabIndex = 5;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "christoffer.mikkelsen@hotmaillcom";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // label38
             // 
@@ -554,7 +550,6 @@
             this.button12.TabIndex = 28;
             this.button12.Text = "Update files";
             this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // label49
             // 
@@ -611,7 +606,6 @@
             this.button11.TabIndex = 2;
             this.button11.Text = "Next";
             this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // richTextBox2
             // 
@@ -630,7 +624,6 @@
             this.button4.TabIndex = 0;
             this.button4.Text = "Start challenge";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click_1);
             // 
             // tabPage4
             // 
@@ -645,7 +638,6 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Database";
             this.tabPage4.UseVisualStyleBackColor = true;
-            this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
             // richTextBox1
             // 
@@ -673,7 +665,6 @@
             this.button8.TabIndex = 3;
             this.button8.Text = "Refresh";
             this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 
@@ -683,7 +674,6 @@
             this.button9.TabIndex = 2;
             this.button9.Text = "Search";
             this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // tabPage3
             // 
@@ -720,7 +710,6 @@
             this.chart1.Size = new System.Drawing.Size(324, 344);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "Total user(s) in chat over time";
-            this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // tabPage2
             // 
@@ -776,7 +765,6 @@
             this.groupBox3.TabIndex = 26;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "New giveaway";
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // label9
             // 
@@ -806,7 +794,6 @@
             this.updateButton.TabIndex = 6;
             this.updateButton.Text = "START";
             this.updateButton.UseVisualStyleBackColor = true;
-            this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
             // label28
             // 
@@ -824,7 +811,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(176, 20);
             this.textBox1.TabIndex = 1;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox11
             // 
@@ -929,7 +915,6 @@
             this.button10.TabIndex = 10;
             this.button10.Text = "Send message to last winner";
             this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // label29
             // 
@@ -1140,7 +1125,6 @@
             this.serverBox.Size = new System.Drawing.Size(227, 20);
             this.serverBox.TabIndex = 2;
             this.serverBox.Text = "irc.twitch.tv";
-            this.serverBox.TextChanged += new System.EventHandler(this.serverBox_TextChanged);
             // 
             // textBox12
             // 
@@ -1166,7 +1150,6 @@
             this.button6.TabIndex = 99;
             this.button6.Text = "X";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // label3
             // 
@@ -1233,7 +1216,6 @@
             this.getOAuthButton.TabIndex = 99;
             this.getOAuthButton.Text = "Get";
             this.getOAuthButton.UseVisualStyleBackColor = true;
-            this.getOAuthButton.Click += new System.EventHandler(this.getOAuthButton_Click);
             // 
             // givePointsOnFollowBox
             // 
@@ -1411,7 +1393,6 @@
             this.button15.TabIndex = 32;
             this.button15.Text = "Option B";
             this.button15.UseVisualStyleBackColor = true;
-            this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
             // button14
             // 
@@ -1421,7 +1402,6 @@
             this.button14.TabIndex = 31;
             this.button14.Text = "Option A";
             this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // label59
             // 
@@ -1432,7 +1412,6 @@
             this.label59.Size = new System.Drawing.Size(155, 13);
             this.label59.TabIndex = 28;
             this.label59.Text = "To start a new bet use this tool.";
-            this.label59.Click += new System.EventHandler(this.label59_Click);
             // 
             // groupBox4
             // 
@@ -1450,6 +1429,23 @@
             this.groupBox4.TabIndex = 27;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "New bet";
+            // 
+            // textBox18
+            // 
+            this.textBox18.Location = new System.Drawing.Point(120, 172);
+            this.textBox18.Name = "textBox18";
+            this.textBox18.Size = new System.Drawing.Size(185, 20);
+            this.textBox18.TabIndex = 30;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Enabled = false;
+            this.label52.Location = new System.Drawing.Point(46, 175);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(68, 13);
+            this.label52.TabIndex = 31;
+            this.label52.Text = "Max amount:";
             // 
             // groupBox5
             // 
@@ -1552,7 +1548,6 @@
             this.button13.TabIndex = 6;
             this.button13.Text = "START";
             this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // textBox16
             // 
@@ -1577,24 +1572,16 @@
             this.label55.Size = new System.Drawing.Size(51, 13);
             this.label55.TabIndex = 11;
             this.label55.Text = "Option B:";
-            this.label55.Click += new System.EventHandler(this.label55_Click);
             // 
-            // textBox18
+            // button16
             // 
-            this.textBox18.Location = new System.Drawing.Point(120, 172);
-            this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(185, 20);
-            this.textBox18.TabIndex = 30;
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Enabled = false;
-            this.label52.Location = new System.Drawing.Point(46, 175);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(68, 13);
-            this.label52.TabIndex = 31;
-            this.label52.Text = "Max amount:";
+            this.button16.Location = new System.Drawing.Point(264, 24);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(86, 24);
+            this.button16.TabIndex = 28;
+            this.button16.Text = "DEBUG";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // Main
             // 
@@ -1615,7 +1602,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HugBotty 1.0 - By zahlio";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
-            this.Load += new System.EventHandler(this.Main_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1789,6 +1775,7 @@
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.TextBox textBox18;
         private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.Button button16;
     }
 }
 

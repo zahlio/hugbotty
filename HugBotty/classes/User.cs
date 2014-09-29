@@ -9,6 +9,7 @@ namespace HugBotty.classes
 {
     class User
     {
+        public int id;
         public string channel;
         public string nick;
         public int points;
@@ -17,31 +18,14 @@ namespace HugBotty.classes
         public bool isFollower;
         public bool isDonater;
         public bool isOnline;
+        public bool isNew;
 
-        public User(string _channel, string _nick){
+        public User(string _channel, string _nick, int _points = 0, int _pointsRecieved = 0, int _pointsGiven = 0, bool _isFollower = false, bool _isDonator = false, bool _isNew = false)
+        {
             this.channel = _channel;
             this.nick = _nick;
             this.isOnline = true;
-            syncWithServer();
-        }
-
-        public void syncWithServer(){
-            SQL s = new SQL(this.channel);
-            User thisUser = s.getUser(this.nick);
-
-            if(thisUser == null){
-                this.points = 0;
-                this.pointsRecieved = 0;
-                this.pointsGiven = 0;
-                this.isFollower = false;
-                this.isDonater = false;
-            }else{
-                this.points = thisUser.points;
-                this.pointsRecieved = thisUser.pointsRecieved;
-                this.pointsGiven = thisUser.pointsRecieved;
-                this.isFollower = thisUser.isFollower;
-                this.isDonater = thisUser.isDonater;
-            }
+            this.isNew = _isNew;
         }
     }
 }

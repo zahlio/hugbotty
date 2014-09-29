@@ -12,7 +12,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 using System.Reflection;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
@@ -23,9 +22,10 @@ namespace HugBotty
     public partial class Main : Form 
     {
         // Chat connection
-        public Connection connection;
-        public List<User> members = new List<User>();
-        public long lastSendMsg;
+        private Connection connection;
+        private List<User> members = new List<User>();
+        private long lastSendMsg;
+        private int messageTimeOut = 5; // time en seconds between msg.
 
         public Main()
         {
@@ -271,6 +271,10 @@ namespace HugBotty
                 //The main thread ends here but the Connection's thread is still alive.
                 //We are now in a passive mode waiting for events to arrive.
                 connection.Sender.PublicMessage("#" + channelBox.Text, "HugBotty.com is in da house!");
+
+                // load users
+                Api a = new Api();
+                this.members = a.getUsers(channelBox.Text);
             }
             catch (Exception e)
             {
@@ -351,10 +355,17 @@ namespace HugBotty
                     string hugUser = message.Replace("!hug ", "");
                     if (!hugUser.Equals(user.Nick))
                     {
-                        if (giveHug(hugUser, user.Nick))
+                        User temp = getUser(user.Nick);
+                        User temp2 = getUser(hugUser);
+                        if (temp.points - 1 >= 0 && temp2 != null)
                         {
                             if (checkBox3.Checked && UnixTimeNow() > lastSendMsg + messageTimeOut)
                             {
+                                temp.points--;
+                                temp.pointsGiven++;
+                                temp2.points++;
+                                temp2.pointsRecieved++;
+
                                 connection.Sender.PublicMessage(channel, user.Nick + " gave " + hugUser + " a big warm and loving " + textBox13.Text + "!");
                                 lastSendMsg = UnixTimeNow();
                             }
@@ -378,29 +389,29 @@ namespace HugBotty
                     }
                 }
 
-
-                totalMsgs++;
-                //Echo back any public messages
-                this.Invoke(new Action(() => this.label25.Text = totalMsgs.ToString()));
-
                 if (UnixTimeNow() > lastSendMsg + messageTimeOut)
                 {
 
                     // cases
                     if (message.Equals("!points")) {
                         this.Invoke(new Action(() => this.chatMessage.Text += "[" + DateTime.Now.ToString("H:mm:s") + "] " + user.Nick + ": " + message + "\n"));
-                        int points = getPoint(user.Nick);
+                        
+                        User temp = getUser(user.Nick);
+                        int points = temp.points;
+                        int pointsGiven = temp.pointsGiven;
+                        int pointsRecieved = temp.pointsRecieved;
                         if (points == 0)
                         {
                             connection.Sender.PublicMessage(channel, user.Nick + ", you dont have any " + textBox12.Text + "(s), follow or watch the stream to earn " + textBox12.Text + "'s.");
                             lastSendMsg = UnixTimeNow();
                         }
                         else {
-                            connection.Sender.PublicMessage(channel, user.Nick + ", you have a total of: " + points + " " + textBox12.Text + "(s). You have been given " + getPointsRecieved(user.Nick) + " " + textBox13.Text + "'s, and you have shared a total of " + getPointsGiven(user.Nick) + " binary " + textBox13.Text + "'s.");
+                            connection.Sender.PublicMessage(channel, user.Nick + ", you have a total of: " + points + " " + textBox12.Text + "(s). You have been given " + pointsRecieved + " " + textBox13.Text + "'s, and you have shared a total of " + pointsGiven + " binary " + textBox13.Text + "'s.");
                             lastSendMsg = UnixTimeNow();
                         } 
                     }
 
+                    /*
                     if (giveawayActive) {
                         if (message.Equals("!" + giveawayName))
                         {
@@ -409,49 +420,7 @@ namespace HugBotty
                             enterGiveAway(user.Nick, channelBox.Text);
                         }
                     }
-
-                    if (challengeActive) {
-                        // price textBox15
-                        if (message.Equals("!challenge"))
-                        {
-                            this.Invoke(new Action(() => this.chatMessage.Text += "[" + DateTime.Now.ToString("H:mm:s") + "] " + user.Nick + ": " + message + "\n"));
-                            this.Invoke(new Action(() => this.chatMessage.Text += "[" + DateTime.Now.ToString("H:mm:s") + "] User: " + user.Nick + ", trying to enter challenge\n"));
-
-                            Thread tChallenge = new Thread(() =>
-                            {
-                                if (enterChallenge(user.Nick, channelBox.Text))
-                                {
-                                    connection.Sender.PublicMessage(channel, user.Nick + ", you have entered the challenge. Please wait for your turn!");
-                                    lastSendMsg = UnixTimeNow();
-                                }
-
-                            });
-                            tChallenge.Start();
-                        }
-                    }
-
-                    // betting
-                    if (isBetting) {
-                        if (message.Equals("!bet"))
-                        {
-                            this.Invoke(new Action(() => this.chatMessage.Text += "[" + DateTime.Now.ToString("H:mm:s") + "] " + user.Nick + ": " + message + "\n"));
-                            this.Invoke(new Action(() => this.chatMessage.Text += "[" + DateTime.Now.ToString("H:mm:s") + "] User: " + user.Nick + ", trying to enter bet\n"));
-
-                            Thread tBetting = new Thread(() =>
-                            {
-                                int amount = Int32.Parse(Regex.Match(message, @"\d+").Value);
-                                string option = message.Replace("!bet ", "");
-                                option = option.Replace(" " + amount, "");
-
-                                if (addBet(user.Nick, option, amount))
-                                {
-                                    connection.Sender.PublicMessage(channel, user.Nick + ", you have entered the bet!");
-                                    lastSendMsg = UnixTimeNow();
-                                }
-                            });
-                            tBetting.Start();
-                        }
-                    }
+                    */
 
                     // Funny
                     if (message.Contains("hugbot") && message.Contains("made") || message.Contains("hugbot") && message.Contains("coder") || message.Contains("bot") && message.Contains("coder"))
@@ -518,10 +487,9 @@ namespace HugBotty
                         return;
                     }
                 }
-
-                members.Add(new User(channel, user.Nick));
-                return;
-                
+            
+                // if we are here then its a new users
+                members.Add(new User(channelBox.Text, user.Nick, 0, 0, 0, false, false, true));
             });
             t.Start();
         }
@@ -595,7 +563,7 @@ namespace HugBotty
             return res;
         }
 
-        public User getUser(string nick) {
+        private User getUser(string nick) {
             foreach (User _user in members)
             {
                 if (_user.nick == nick)
@@ -605,6 +573,18 @@ namespace HugBotty
             }
 
             return null; // should not happen
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Api a = new Api();
+            a.listUsers(members);
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            Api a = new Api();
+            this.members = a.getUsers(channelBox.Text);
         }
     }
 }

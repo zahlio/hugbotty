@@ -47,10 +47,8 @@ namespace HugBotty.classes
                         );
                     }
                 }
-
-                //close connection
                 CloseConnection(tempCon);
-            }
+            } 
 
             // if the user is null then we need to create it
             if (user == null) {
@@ -82,7 +80,7 @@ namespace HugBotty.classes
         {
             try
             {
-                string connectionString = "SERVER=ftp.zahlio.com;DATABASE=hugbotty;UID=hugbotty;PASSWORD=hugbotty123;Pooling=false;";
+                string connectionString = "SERVER=db.zahlio.com;DATABASE=hugbotty;UID=hugbotty;PASSWORD=hugbotty123;Pooling=false;";
                 MySqlConnection newCon = new MySqlConnection(connectionString);
                 newCon.Open();
                 return newCon;
@@ -108,6 +106,7 @@ namespace HugBotty.classes
             }
             catch (Exception e2)
             {
+                Console.WriteLine("ERROR" + e2);
                 return null;
             }
         }
@@ -122,6 +121,7 @@ namespace HugBotty.classes
             }
             catch (MySqlException ex)
             {
+                Console.WriteLine("ERROR" + ex);
                 return false;
             }
         }

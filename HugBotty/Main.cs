@@ -27,6 +27,11 @@ namespace HugBotty
         private long lastSendMsg;
         private int messageTimeOut = 5; // time en seconds between msg.
 
+        // Counters and UI stuff
+        private int totalMsg = 0; // total messages send
+        private int newFollowers = 0; // new followers this session
+        private int totalUsers = 0; // total users this session
+
         public Main()
         {
             InitializeComponent();
@@ -50,11 +55,6 @@ namespace HugBotty
             this.checkBox2.Checked = Properties.Settings.Default.giftUsers;
             this.checkBox3.Checked = Properties.Settings.Default.hugbotGivesHugs;
 
-            // Donate box
-            Donate d = new Donate(this);
-            d.Show();
-            this.Enabled = false;
-
             // Load version
             Assembly assembly = Assembly.GetExecutingAssembly();
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
@@ -76,6 +76,28 @@ namespace HugBotty
             else if (!checkString(textBox13.Text, "Please enter a valid HugPoints short name.")) { }
             else
             {
+                try
+                {
+                    // load users
+                    this.Invoke(new Action(() => this.chatMessage.Text += "[SYSTEM] Loading users from API...\n"));
+                    Api a = new Api();
+                    this.members = a.getUsers(channelBox.Text);
+                    this.Invoke(new Action(() => this.chatMessage.Text += "[SYSTEM] Loaded af total of " + members.Count + " members from API.\n"));
+                }
+                catch (Exception e1)
+                {
+                    Console.WriteLine("Could not connect to API.");
+                    this.chatMessage.Text += "[SYSTEM] Could not connect to API.\n";
+                    MessageBox.Show("Could not connect to API",
+                        "ERROR",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation,
+                        MessageBoxDefaultButton.Button1
+                    );
+                    return;
+                }
+
+
                 CreateConnection();
 
                 //OnRegister tells us that we have successfully established a connection with
@@ -98,9 +120,6 @@ namespace HugBotty
 
                 //Listen for notification that we are no longer connected.
                 connection.Listener.OnDisconnected += new DisconnectedEventHandler(OnDisconnected);
-                panel2.Enabled = true;
-                panel3.Enabled = false;
-                challengePanel.Enabled = true;
             }
         }
 
@@ -251,7 +270,6 @@ namespace HugBotty
             //handlers are required for each connection, i.e. the
             //same OnRegistered () handler cannot be used for different connection
             //instances.
-
             try
             {
                 //Calling Connect() will cause the Connection object to open a
@@ -259,7 +277,6 @@ namespace HugBotty
                 //separate thread it will listen for messages and send them to the
                 //Listener for processing.
                 connection.Connect();
-
                 Console.WriteLine("Connected.");
                 this.Invoke(new Action(() => this.connectButton.Enabled = false));
                 this.Invoke(new Action(() => this.panel1.Enabled = true));
@@ -271,10 +288,6 @@ namespace HugBotty
                 //The main thread ends here but the Connection's thread is still alive.
                 //We are now in a passive mode waiting for events to arrive.
                 connection.Sender.PublicMessage("#" + channelBox.Text, "HugBotty.com is in da house!");
-
-                // load users
-                Api a = new Api();
-                this.members = a.getUsers(channelBox.Text);
             }
             catch (Exception e)
             {
@@ -315,6 +328,9 @@ namespace HugBotty
          */
         public void OnPublic(UserInfo user, string channel, string message)
         {
+            Console.WriteLine(user.Nick + " - " + message);
+            this.totalMsg++;
+            this.updateStats();
             Thread t = new Thread(() =>
             {
                 /*
@@ -325,6 +341,9 @@ namespace HugBotty
                 {
                     if (_user.nick == user.Nick)
                     {
+                        if (!_user.isOnline) {
+                            totalUsers++;
+                        }
                         _user.isOnline = true;
                         isHere = true;
                         break;
@@ -332,7 +351,8 @@ namespace HugBotty
                 }
 
                 if(!isHere){
-                    members.Add(new User(channel, user.Nick));
+                    totalUsers++;
+                    members.Add(new User(channelBox.Text, user.Nick, 0, 0, 0, false, false, true));
                 }
 
                 // admin remove
@@ -479,6 +499,7 @@ namespace HugBotty
          */
         public void OnJoin(UserInfo user, string channel)
         {
+            totalUsers++;
             Thread t = new Thread(() =>
             {
                 foreach (User _user in members) {
@@ -584,7 +605,25 @@ namespace HugBotty
         private void button16_Click(object sender, EventArgs e)
         {
             Api a = new Api();
-            this.members = a.getUsers(channelBox.Text);
+            this.members = a.syncUsers(a.getUsers(channelBox.Text), channelBox.Text);
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void updateStats() {
+            this.Invoke(new Action(() => stats_users_in_chat.Text = members.Count(user => user.isOnline == true).ToString()));
+            this.Invoke(new Action(() => stats_users_in_db.Text = members.Count.ToString()));
+            this.Invoke(new Action(() => stats_total_msg.Text = totalMsg.ToString()));
+            this.Invoke(new Action(() => stats_new_followers.Text = newFollowers.ToString()));
+            this.Invoke(new Action(() => stats_total_users_session.Text = totalUsers.ToString()));
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            connection.Sender.PublicMessage("#" + channelBox.Text, textBox9.Text);
         }
     }
 }

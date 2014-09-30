@@ -11,8 +11,9 @@ using System.Net;
 namespace HugBotty.classes
 {
     class Api
-    {  
-        public void syncUsers(List<User> users, string channel) {
+    {
+        public List<User> syncUsers(List<User> users, string channel)
+        {
             string usersJson = "";
 
             if (users.Count > 0)
@@ -54,6 +55,14 @@ namespace HugBotty.classes
             var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
             Debug.WriteLine("API RESPONSE: " + responseString);
+
+            foreach (User uTemp in users)
+            {
+                uTemp.isNew = false;
+            }
+
+            Debug.WriteLine("GOT A TOTAL OF: " + users.Count + " USERS");
+            return users;
         }
 
         public List<User> getUsers(string channel)

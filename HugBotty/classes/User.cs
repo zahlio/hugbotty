@@ -24,8 +24,10 @@ namespace HugBotty.classes
         {
             this.channel = _channel;
             this.nick = _nick;
-            this.isOnline = true;
+            this.isOnline = false;
             this.isNew = _isNew;
+            this.isFollower = _isFollower;
+            this.isDonater = _isDonator;
         }
     }
 }

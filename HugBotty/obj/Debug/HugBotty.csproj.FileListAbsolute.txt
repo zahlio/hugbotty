@@ -40,7 +40,6 @@ C:\Users\Christoffer\Documents\GitHub\HugBotty\HugBotty\obj\Debug\HugBotty.Debug
 H:\Projects\HugBotty\HugBotty\bin\Debug\MySql.Data.dll
 H:\Projects\HugBotty\HugBotty\bin\Debug\MySql.Data.Entity.dll
 H:\Projects\HugBotty\HugBotty\bin\Debug\MySql.Web.dll
-H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.Donate.resources
 H:\Projects\HugBotty\HugBotty\bin\Debug\HugBotty.exe.manifest
 H:\Projects\HugBotty\HugBotty\bin\Debug\HugBotty.application
 H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.TrustInfo.xml
@@ -58,3 +57,4 @@ D:\Streaming\HugBotty Git\HugBotty\obj\Debug\HugBotty.csproj.GenerateResource.Ca
 H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.csprojResolveAssemblyReference.cache
 H:\Projects\HugBotty\HugBotty\bin\Debug\Newtonsoft.Json.pdb
 H:\Projects\HugBotty\HugBotty\bin\Debug\Newtonsoft.Json.xml
+H:\Projects\HugBotty\HugBotty\obj\Debug\HugBotty.Login.resources

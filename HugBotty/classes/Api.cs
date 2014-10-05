@@ -85,8 +85,6 @@ namespace HugBotty.classes
 
             var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
-            // convert values to bools
-
             Debug.WriteLine("API RESPONSE: " + responseString);
 
             List<User> users = JsonConvert.DeserializeObject<List<User>>(responseString);
@@ -100,5 +98,84 @@ namespace HugBotty.classes
                 Debug.WriteLine(u.nick);
             }
         }
+
+        public List<User> updatedFollowers(List<User> users, string channel, int offset)
+        {
+            // https://api.twitch.tv/kraken/channels/diojr1/follows
+
+            var request = (HttpWebRequest)WebRequest.Create("https://api.twitch.tv/kraken/channels/" + channel + "/follows?direction=DESC&limit=100&offset=" + offset);
+
+            request.Method = "GET";
+            request.ContentType = "application/x-www-form-urlencoded";
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            RootObject members = JsonConvert.DeserializeObject<RootObject>(responseString);
+            int count = 0;
+            foreach(User u in users){
+                if(!u.isFollower){
+                    foreach (Follow f in members.follows) {
+                        if(f.user.name.Equals(u.nick)){
+                            u.isFollower = true;
+                            count++;
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine("Added a total of " + count + " new followers.");
+
+            if (members._total > offset)
+            {
+                return updatedFollowers(users, channel, (offset + 100));
+            }
+            else {
+                return users;
+            }
+        }
     }
+
+
+    /** JSON CLASSSES START **/
+    public class TwitchUser
+    {
+        public int _id { get; set; }
+        public string name { get; set; }
+        public string created_at { get; set; }
+        public string updated_at { get; set; }
+        public Links2 _links { get; set; }
+        public string display_name { get; set; }
+        public string logo { get; set; }
+        public string bio { get; set; }
+        public string type { get; set; }
+    }
+
+    public class Follow
+    {
+        public string created_at { get; set; }
+        public Links _links { get; set; }
+        public TwitchUser user { get; set; }
+    }
+
+    public class Links
+    {
+        public string self { get; set; }
+    }
+
+    public class Links2
+    {
+        public string self { get; set; }
+        public string next { get; set; }
+    }
+
+    public class RootObject
+    {
+        public List<Follow> follows { get; set; }
+        public int _total { get; set; }
+        public Links2 _links { get; set; }
+    }
+
+    /** JSON CLASSSES END **/
 }

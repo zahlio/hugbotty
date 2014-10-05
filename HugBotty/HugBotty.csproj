@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="classes\Api.cs" />
+    <Compile Include="classes\Bet.cs" />
     <Compile Include="classes\Giveaway.cs" />
     <Compile Include="classes\SQL.cs" />
     <Compile Include="classes\User.cs" />

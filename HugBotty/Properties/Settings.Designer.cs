@@ -25,7 +25,7 @@ namespace HugBotty.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("diojr1")]
         public string channel {
             get {
                 return ((string)(this["channel"]));
@@ -49,7 +49,7 @@ namespace HugBotty.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("hugbotty")]
         public string username {
             get {
                 return ((string)(this["username"]));
@@ -61,7 +61,7 @@ namespace HugBotty.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("oauth:2zst854mu03cm8vyhoubaihnyuvcqmf")]
         public string oAuth {
             get {
                 return ((string)(this["oAuth"]));

@@ -3,16 +3,16 @@
   <Profiles />
   <Settings>
     <Setting Name="channel" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">diojr1</Value>
     </Setting>
     <Setting Name="server" Type="System.String" Scope="User">
       <Value Profile="(Default)">irc.twitch.tv</Value>
     </Setting>
     <Setting Name="username" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">hugbotty</Value>
     </Setting>
     <Setting Name="oAuth" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">oauth:2zst854mu03cm8vyhoubaihnyuvcqmf</Value>
     </Setting>
     <Setting Name="hugName" Type="System.String" Scope="User">
       <Value Profile="(Default)">HugPoint</Value>
